@@ -1,0 +1,9 @@
+# Download background image from bing.com
+
+- db download images
+getbingimage.py -d start 
+
+- webserver  show images on web page
+
+- client  GTK3 app to view images by webserver's api
+in progress...

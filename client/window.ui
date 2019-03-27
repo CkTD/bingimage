@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="BingimgWin" parent="GtkApplicationWindow">
+    <property name="title">Application</property>
+    <property name="default-width">600</property>
+    <property name="default-height">400</property>
+    <child>
+
+    </child>
+  </template>
+</interface>

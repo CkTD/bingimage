@@ -1,13 +1,8 @@
+#!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+
 import sys
-
-config={'log-file':'./www.log',
-		'pid-file':'./.www.pid',
-		'daemon':sys.argv[1] if len(sys.argv)>1 else None}
-if config['daemon']:
-	import daemon
-	daemon.daemon_exec(config)
-
+import math
 
 
 from bottle import run, route
@@ -15,11 +10,21 @@ from bottle import static_file
 from bottle import request
 from bottle import template
 from bottle import install
-
-import math
-
 from bottle_sqlite import SQLitePlugin
-install(SQLitePlugin(dbfile='./db/imgs.db'))
+
+
+
+config={'log-file':'./www.log',
+		'pid-file':'./.www.pid',
+		'db-file': '../db/imgs.db',
+		'img-path': '../db/imgs',
+		'daemon':sys.argv[1] if len(sys.argv)>1 else None}
+if config['daemon']:
+	import daemon
+	daemon.daemon_exec(config)
+
+install(SQLitePlugin(dbfile=config['db-file']))
+
 
 templatestr="""<!DOCTYPE html>
 <html>
@@ -126,7 +131,7 @@ def index(db):
 
 @route("/db/imgs/<filename>")
 def server_imgs(filename):
-    return static_file(filename,root="./db/imgs")
+    return static_file(filename,root=config['img-path'])
 
 
 run(host='',port=88,debug=None)
