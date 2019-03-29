@@ -4,7 +4,6 @@
 #include <gtk/gtk.h>
 
 G_DECLARE_FINAL_TYPE(BingimgApp, bingimg_app, BINGIMG, APP, GtkApplication)
-
 /*  Expands to: 
     typedef struct _BingimgApp BingimgApp;
     typedef struct
@@ -19,9 +18,10 @@ G_DECLARE_FINAL_TYPE(BingimgApp, bingimg_app, BINGIMG, APP, GtkApplication)
         return ((__extension__({ GTypeInstance *__inst = (GTypeInstance*) (ptr); GType __t = (bingimg_app_get_type ()); gboolean __r; if (!__inst) __r = (0); else if (__inst->g_class && __inst->g_class->g_type == __t) __r = (!(0)); else __r = g_type_check_instance_is_a (__inst, __t); __r; })));
     }
 */
+#define BINGIMG_APP_TYPE bingimg_app_get_type()
 
 BingimgApp    *bingimg_app_new(void);
-#define BINGIMG_APP_TYPE bingimg_app_get_type()
+
 
 
 #endif

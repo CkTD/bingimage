@@ -2,5 +2,6 @@
 <gresources>
   <gresource prefix="/com/github/CktD/bingimg">
     <file preprocess="xml-stripblanks">window.ui</file>
+    <file preprocess="xml-stripblanks">cell.ui</file>
   </gresource>
 </gresources>

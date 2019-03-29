@@ -1,11 +1,11 @@
-CFLAGS=`pkg-config --cflags gtk+-3.0`
-LDFLAGS=`pkg-config --libs gtk+-3.0`
+CFLAGS=$(shell pkg-config --cflags gtk+-3.0 libsoup-2.4 json-glib-1.0) -g
+LDFLAGS=$(shell pkg-config --libs gtk+-3.0 libsoup-2.4 json-glib-1.0)
 
 .PHONY: all clean
 
 all: client
 
-OBJECTS=client.o bingimg_app.o bingimg_win.o resource.o
+OBJECTS=client.o bingimg_app.o bingimg_win.o network.o resource.o
 DEPS=bingimg_app.h bingimg_win.h
 
 resource.c: gresource.xml window.ui

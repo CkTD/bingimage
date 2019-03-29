@@ -134,4 +134,20 @@ def server_imgs(filename):
     return static_file(filename,root=config['img-path'])
 
 
-run(host='',port=88,debug=None)
+@route("/api/months")
+def months(db):
+	months = db.execute("select distinct startdate/100 from imgs order by startdate DESC").fetchall()
+	months = [ str(x[0]) for x in months]
+	return {"months": months}
+
+@route("/api/imgs/<month>")
+def images(month ,db):
+	if month.isnumeric() and len(month) == 6:
+		imgs = db.execute("select * from imgs where startdate/100=?  order by startdate ASC", (int(month),)).fetchall()
+		imgs = [ {'date': str(x[0]), 'copyright':x[1], 'url': "/db/imgs/%s.jpg" % str(x[0])} for x in imgs ]
+		imgs = {'images': imgs}
+	else:
+		imgs = {'images':[]}
+	return imgs
+
+run(host='',port=8888,debug=None)
