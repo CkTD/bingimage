@@ -133,7 +133,7 @@ static GArray* get_images_json_parse(const gchar *data, gint length)
     gint               i;
 
     GArray            *images;
-    ImageMeta  *meta;
+    ImageMeta         *meta;
 
 
     parser = json_parser_new();
@@ -154,7 +154,7 @@ static GArray* get_images_json_parse(const gchar *data, gint length)
     images =  g_array_new(FALSE, FALSE, sizeof(ImageMeta *));
     for(i=0;i<json_array_get_length(array);i++)
     {
-        meta = g_malloc(sizeof(ImageMeta *));
+        meta = g_malloc(sizeof(ImageMeta));
         node = json_array_get_element(array, i);
         object = json_node_get_object(node);
         
@@ -244,17 +244,21 @@ static void get_image_callback(SoupSession *session, SoupMessage * msg, gpointer
 
     if (msg->status_code != 200)
     {
-
         callback(win, NULL, data);
     }
     else
     {
         loader = gdk_pixbuf_loader_new();
         gdk_pixbuf_loader_write(loader,msg->response_body->data,msg->response_body->length,NULL);
+        gdk_pixbuf_loader_close(loader, NULL);
         pixbuf = gdk_pixbuf_loader_get_pixbuf(loader);
+        g_object_ref(pixbuf);
         callback(win, pixbuf, data);
+        g_object_unref(G_OBJECT(loader));
     }
+
     g_free(p);
+
 }
 
 void network_get_image(const gchar *r_url, BingimgWin *win, network_callback func, gpointer data)

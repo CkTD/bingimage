@@ -63,6 +63,8 @@ static void set_cells(BingimgWin *win ,GArray *metas)
 
     g_array_append_val(win->cells, box);
     g_array_append_val(win->images, image);
+
+    g_object_unref(builder);
     //g_print("%s | %s | %s\n", meta->date, meta->copyright, meta->url);
   }
 
@@ -107,10 +109,9 @@ static void on_get_image_done(BingimgWin *win, gpointer result, gpointer data)
 
     scalled_pixbuf = gdk_pixbuf_scale_simple(pixbuf, gdk_pixbuf_get_width(pixbuf) / 6, gdk_pixbuf_get_height(pixbuf) / 6, GDK_INTERP_BILINEAR);
     gtk_image_set_from_pixbuf(GTK_IMAGE(image), scalled_pixbuf);
-    g_object_unref(pixbuf);
     g_object_unref(scalled_pixbuf);
   }
-
+  g_object_unref(pixbuf);
   g_free(data);
 }
 
