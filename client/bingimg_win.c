@@ -33,8 +33,6 @@ static void set_cells(BingimgWin *win ,GArray *metas)
   GtkWidget  *eventbox;
   GtkWidget  *image;
   GtkWidget  *label;
-  GdkPixbuf  *pixbuf;
-  GdkPixbuf  *scalled_pixbuf;
    
   ImageMeta  *meta;
   int         i;
@@ -213,7 +211,7 @@ static void on_previous_button_event(GtkWidget *button, GdkEvent *event, gpointe
 }
 
 
-gboolean on_image_button_event(GtkWidget *eventbox, GdkEventButton *event, gpointer data)
+void on_image_button_event(GtkWidget *eventbox, GdkEventButton *event, gpointer data)
 {
   switch (event->type)
   {
